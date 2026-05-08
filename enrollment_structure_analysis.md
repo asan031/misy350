@@ -1,0 +1,5 @@
+The code currently separates responsibilities only loosely. Database access, service rules, global state, setup logic, snapshot export, and the runner are all in the same procedural file, so the layer boundaries are not clear.
+
+The main structural issue is that some functions that look like database functions also make service-level decisions, such as filtering only enrolled records, normalizing enrollment keys, reactivating enrollments, and deciding what data belongs in a snapshot. At the same time, some functions marked as Service directly perform database setup or SQL work.
+
+Overall, the design works as a starter file, but it would become harder to scale because ownership is unclear: the database layer is not purely data access, the service layer is not purely business logic, and global state is being used across multiple responsibilities.
